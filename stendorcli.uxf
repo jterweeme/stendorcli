@@ -3,75 +3,116 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>650</x>
-      <y>250</y>
-      <w>200</w>
-      <h>130</h>
+      <x>600</x>
+      <y>320</y>
+      <w>240</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>*Main*
 --
-
+-arduino: Arduino
+-console: Console
+-input: EditText
+-btnSend: Button
 --
-</panel_attributes>
++onCreate(sis: Bundle): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>940</x>
-      <y>250</y>
-      <w>100</w>
-      <h>130</h>
+      <x>900</x>
+      <y>320</y>
+      <w>200</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>*Console*
 --
---</panel_attributes>
+-tv: TextView
+--
++Console(tv: TextView)
++println(s: String): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>820</x>
-      <y>290</y>
-      <w>140</w>
+      <x>810</x>
+      <y>360</y>
+      <w>110</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;120;30</additional_attributes>
+    <additional_attributes>30;30;90;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>530</x>
-      <y>290</y>
-      <w>140</w>
-      <h>50</h>
+      <x>670</x>
+      <y>230</y>
+      <w>50</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>120;30;30;30</additional_attributes>
+    <additional_attributes>30;90;30;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>290</x>
-      <y>250</y>
-      <w>270</w>
-      <h>130</h>
+      <x>600</x>
+      <y>110</y>
+      <w>500</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>*Arduino*
 --
---</panel_attributes>
+-console: Console
+-driver: UsbSerialDriver
+--
+-Arduino()
+_+factory(): Arduino_
++pan(deg: int): void
++tilt(deg: int): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>390</x>
-      <y>110</y>
-      <w>620</w>
-      <h>160</h>
+      <x>970</x>
+      <y>230</y>
+      <w>50</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;140;30;30;600;30;600;140</additional_attributes>
+    <additional_attributes>30;30;30;90</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>600</x>
+      <y>540</y>
+      <w>240</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>*Command*
+--
+-operation: String
+-parameter: int
+--
++Command(command: String)
++getOperation(): String
++getParameter(): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>680</x>
+      <y>440</y>
+      <w>50</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;100;30;30</additional_attributes>
   </element>
 </diagram>
