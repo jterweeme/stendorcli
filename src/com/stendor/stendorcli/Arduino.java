@@ -36,7 +36,7 @@ public class Arduino
         }
         catch (Exception e)
         {
-            console.println("Kan baudrate niet instellen");
+            console.println("Kan baudrate niet instellen...");
         }
 
         console.println("Arduino geinitialiseerd");
@@ -45,7 +45,6 @@ public class Arduino
     public void pan(int deg)
     {
         console.println("Pan: " + deg);
-        //String command = "p 100\r";
         String command = String.format("p %d\r", deg);
 
         try
@@ -54,7 +53,7 @@ public class Arduino
         }
         catch (Exception e)
         {
-            console.println("Kan niet pannen");
+            console.println("Kan niet pannen...");
         }
     }
 
@@ -69,17 +68,73 @@ public class Arduino
         }
         catch (Exception e)
         {
-            console.println("Kan niet tilten");
+            console.println("Kan niet tilten...");
         }
     }
     
     public void linksVooruit(int speed)
     {
+        console.println("Links vooruit: " + speed);
+        String command = String.format("q %d\r", speed);
+
+        try
+        {
+            driver.write(command.getBytes(), 0);
+        }
+        catch (Exception e)
+        {
+            console.println("Kan niet links vooruit...");
+        }
+
     }
 
     public void linksAchteruit(int speed)
     {
+        console.println("Links achteruit: " + speed);
+        String command = String.format("a %d\r", speed);
+
+        try
+        {
+            driver.write(command.getBytes(), 0);
+        }
+        catch (Exception e)
+        {
+            console.println("Kan niet links achteruit...");
+        }
+
     }
+    public void rechtsVooruit(int speed)
+    {
+        console.println("Rechts vooruit: " + speed);
+        String command = String.format("w %d\r", speed);
+
+        try
+        {
+            driver.write(command.getBytes(), 0);
+        }
+        catch (Exception e)
+        {
+            console.println("Kan niet rechts vooruit...");
+        }
+
+    }
+
+    public void rechtsAchteruit(int speed)
+    {
+        console.println("Rechts achteruit: " + speed);
+        String command = String.format("s %d\r", speed);
+
+        try
+        {
+            driver.write(command.getBytes(), 0);
+        }
+        catch (Exception e)
+        {
+            console.println("Kan niet rechts achteruit...");
+        }
+
+    }
+
 }
 
 
