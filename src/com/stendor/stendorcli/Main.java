@@ -27,6 +27,14 @@ public class Main extends android.app.Activity
             arduino.pan(command.getParameter());
         else if (command.getOperation().equals("tilt") && arduino != null)
             arduino.tilt(command.getParameter());
+        else if (command.getOperation().equals("kuyt") && arduino != null)
+            arduino.linksVooruit(command.getParameter());
+        else if (command.getOperation().equals("schaars") && arduino != null)
+            arduino.linksAchteruit(command.getParameter());
+        else if (command.getOperation().equals("robben") && arduino != null)
+            arduino.rechtsVooruit(command.getParameter());
+        else if (command.getOperation().equals("gregory") && arduino != null)
+            arduino.rechtsAchteruit(command.getParameter());
         else
             console.println("Ongeldige opdracht");
     }
