@@ -35,6 +35,8 @@ public class Main extends android.app.Activity
             arduino.rechtsVooruit(command.getParameter());
         else if (command.getOperation().equals("gregory") && arduino != null)
             arduino.rechtsAchteruit(command.getParameter());
+        else if (command.getOperation().equals("trip") && arduino != null)
+            arduino.trip();
         else
             console.println("Ongeldige opdracht");
     }

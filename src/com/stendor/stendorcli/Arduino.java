@@ -132,7 +132,25 @@ public class Arduino
         {
             console.println("Kan niet rechts achteruit...");
         }
+    }
 
+    public int trip()
+    {
+        String command = "o\r";
+        byte[] buffer = new byte[80];
+
+        try
+        {
+            driver.write(command.getBytes(), 0);
+            driver.read(buffer,0);
+            console.println(java.util.Arrays.toString(buffer));
+        }
+        catch (Exception e)
+        {
+            console.println("Geen trip informatie...");
+        }
+
+        return 0;
     }
 
 }
