@@ -71,7 +71,14 @@ public class Arduino
         {
             console.println("Kan niet tilten");
         }
+    }
+    
+    public void linksVooruit(int speed)
+    {
+    }
 
+    public void linksAchteruit(int speed)
+    {
     }
 }
 
