@@ -25,19 +25,25 @@ public class Main extends android.app.Activity
 
     public void execute(Command command)
     {
-        if (command.getOperation().equals("pan") && arduino != null)
+        if (arduino == null)
+        {
+            console.println("Geen Arduino! :S");
+            return;
+        }
+
+        if (command.getOperation().equals("pan"))
             arduino.pan(command.getParameter());
-        else if (command.getOperation().equals("tilt") && arduino != null)
+        else if (command.getOperation().equals("tilt"))
             arduino.tilt(command.getParameter());
-        else if (command.getOperation().equals("kuyt") && arduino != null)
+        else if (command.getOperation().equals("kuyt"))
             arduino.linksVooruit(command.getParameter());
-        else if (command.getOperation().equals("schaars") && arduino != null)
+        else if (command.getOperation().equals("schaars"))
             arduino.linksAchteruit(command.getParameter());
-        else if (command.getOperation().equals("robben") && arduino != null)
+        else if (command.getOperation().equals("robben"))
             arduino.rechtsVooruit(command.getParameter());
-        else if (command.getOperation().equals("gregory") && arduino != null)
+        else if (command.getOperation().equals("gregory"))
             arduino.rechtsAchteruit(command.getParameter());
-        else if (command.getOperation().equals("trip") && arduino != null)
+        else if (command.getOperation().equals("trip"))
             arduino.trip();
         else
             console.println("Ongeldige opdracht");

@@ -3,11 +3,14 @@ import android.hardware.usb.UsbManager;
 import android.content.Context;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
+import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
 public class Arduino
 {
     Console console;
     UsbSerialDriver driver;
+    SerialInputOutputManager manager;
+    SerialInputOutputManager.Listener listener;
 
     public static Arduino factory(Console console, Context ctxt)
     {
@@ -40,6 +43,9 @@ public class Arduino
         }
 
         console.println("Arduino geinitialiseerd");
+
+        listener = new Luisteraar();
+        manager = new SerialInputOutputManager(driver, listener);
     }
 
     public void pan(int deg)
@@ -137,17 +143,10 @@ public class Arduino
     public int trip()
     {
         String command = "o\r";
-        byte[] buffer = new byte[80];
 
         try
         {
             driver.write(command.getBytes(), 0);
-            driver.read(buffer, 0);
-            driver.read(buffer, 0);
-            driver.read(buffer, 0);
-            driver.read(buffer, 0);
-            driver.read(buffer, 0);
-            console.println(buffer);
         }
         catch (Exception e)
         {
@@ -157,6 +156,17 @@ public class Arduino
         return 0;
     }
 
+    private class Luisteraar implements SerialInputOutputManager.Listener
+    {
+        public void onRunError(Exception e)
+        {
+        }
+
+        public void onNewData(final byte[] data)
+        {
+            console.println("New data");
+        }
+    }
 }
 
 
