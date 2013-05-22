@@ -1,4 +1,5 @@
 package com.stendor.stendorcli;
+import android.view.KeyEvent;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ public class Main extends android.app.Activity
         console = new Console((TextView)findViewById(R.id.txtConsole));
         btnSend = (Button)findViewById(R.id.btnSend);
         input = (EditText)findViewById(R.id.input);
+        input.setOnEditorActionListener(new InputListener());
         btnSend.setOnClickListener(new SendListener());
         arduino = Arduino.factory(console, this);
     }
@@ -41,12 +43,35 @@ public class Main extends android.app.Activity
             console.println("Ongeldige opdracht");
     }
 
+    void dispatch()
+    {
+        execute(new Command(input.getText().toString()));
+        input.setText("", TextView.BufferType.EDITABLE);
+    }
+
     private class SendListener implements android.view.View.OnClickListener
     {
         public void onClick(android.view.View arg0)
         {
-            execute(new Command(input.getText().toString()));
-            input.setText("", TextView.BufferType.EDITABLE);
+            dispatch();
+        }
+    }
+
+    private class InputLuisteraar implements EditText.OnKeyListener
+    {
+        public boolean onKey(android.view.View v, int keyCode, KeyEvent ev)
+        {
+            dispatch();
+            return false;
+        }
+    }
+
+    private class InputListener implements EditText.OnEditorActionListener
+    {
+        public boolean onEditorAction(TextView et, int actionId, KeyEvent ev)
+        {
+            dispatch();
+            return false;
         }
     }
 }

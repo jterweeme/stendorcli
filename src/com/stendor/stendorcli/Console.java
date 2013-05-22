@@ -14,6 +14,16 @@ public class Console
     {
         tv.append(s + "\n");
     }
+
+    public void println(byte[] byteArray)
+    {
+        String s = "";
+
+        for (byte b : byteArray)
+            s += (char)b;
+
+        tv.append(s);
+    }
 }
 
 

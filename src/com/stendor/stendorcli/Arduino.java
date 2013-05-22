@@ -143,7 +143,7 @@ public class Arduino
         {
             driver.write(command.getBytes(), 0);
             driver.read(buffer,0);
-            console.println(java.util.Arrays.toString(buffer));
+            console.println(buffer);
         }
         catch (Exception e)
         {
