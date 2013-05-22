@@ -22,7 +22,7 @@ public class Console
         for (byte b : byteArray)
             s += (char)b;
 
-        tv.append(s);
+        tv.append(s + "\n");
     }
 }
 
