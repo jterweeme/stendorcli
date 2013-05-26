@@ -20,7 +20,7 @@ public class Main extends android.app.Activity
         input = (EditText)findViewById(R.id.input);
         input.setOnEditorActionListener(new InputListener());
         btnSend.setOnClickListener(new SendListener());
-        arduino = Arduino.factory(console, this);
+        arduino = Arduino.factory(console, this, this);
     }
 
     public void execute(Command command)
@@ -79,6 +79,11 @@ public class Main extends android.app.Activity
             dispatch();
             return false;
         }
+    }
+
+    public void ontvang(byte[] data)
+    {
+        console.println("Ontvangen!\n");
     }
 }
 

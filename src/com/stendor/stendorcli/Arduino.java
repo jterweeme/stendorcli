@@ -4,15 +4,20 @@ import android.content.Context;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
 import com.hoho.android.usbserial.util.SerialInputOutputManager;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Arduino
 {
     Console console;
     UsbSerialDriver driver;
     SerialInputOutputManager manager;
-    //SerialInputOutputManager.Listener listener;
+    SerialInputOutputManager.Listener listener;
+    Main main;
 
-    public static Arduino factory(Console console, Context ctxt)
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    public static Arduino factory(Console console, Context ctxt, Main main)
     {
         UsbManager manager = (UsbManager)ctxt.getSystemService(Context.USB_SERVICE);
 
@@ -24,11 +29,12 @@ public class Arduino
         if (driver == null)
             return null;
 
-        return new Arduino(console, driver);
+        return new Arduino(console, driver, main);
     }
 
-    private Arduino(Console console, UsbSerialDriver driver)
+    private Arduino(Console console, UsbSerialDriver driver, Main main)
     {
+        this.main = main;
         this.console = console;
         this.driver = driver;
 
@@ -43,9 +49,9 @@ public class Arduino
         }
 
         console.println("Arduino geinitialiseerd");
-
-        //listener = new Luisteraar();
-        //manager = new SerialInputOutputManager(driver, listener);
+        listener = new Luisteraar(main);
+        manager = new SerialInputOutputManager(driver, listener);
+        executor.submit(manager);
     }
 
     public void pan(int deg)
@@ -154,18 +160,6 @@ public class Arduino
         }
 
         return 0;
-    }
-
-    private class Luisteraar implements SerialInputOutputManager.Listener
-    {
-        public void onRunError(Exception e)
-        {
-        }
-
-        public void onNewData(final byte[] data)
-        {
-            console.println("New data");
-        }
     }
 }
 
