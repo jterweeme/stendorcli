@@ -10,7 +10,7 @@ public class Arduino
     Console console;
     UsbSerialDriver driver;
     SerialInputOutputManager manager;
-    SerialInputOutputManager.Listener listener;
+    //SerialInputOutputManager.Listener listener;
 
     public static Arduino factory(Console console, Context ctxt)
     {
@@ -44,8 +44,8 @@ public class Arduino
 
         console.println("Arduino geinitialiseerd");
 
-        listener = new Luisteraar();
-        manager = new SerialInputOutputManager(driver, listener);
+        //listener = new Luisteraar();
+        //manager = new SerialInputOutputManager(driver, listener);
     }
 
     public void pan(int deg)
