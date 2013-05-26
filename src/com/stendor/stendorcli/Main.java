@@ -1,15 +1,22 @@
 package com.stendor.stendorcli;
-import android.view.KeyEvent;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class Main extends android.app.Activity
+public class Main
+    extends android.app.Activity
+    implements android.view.View.OnClickListener, EditText.OnEditorActionListener
 {
     Console console;
     Button btnSend;
     EditText input;
     Arduino arduino;
+
+    public boolean onEditorAction(TextView et, int actionId, android.view.KeyEvent ev)
+    {
+        dispatch();
+        return false;
+    }
 
     protected void onCreate(android.os.Bundle sis)
     {
@@ -18,8 +25,8 @@ public class Main extends android.app.Activity
         console = new Console((TextView)findViewById(R.id.txtConsole));
         btnSend = (Button)findViewById(R.id.btnSend);
         input = (EditText)findViewById(R.id.input);
-        input.setOnEditorActionListener(new InputListener());
-        btnSend.setOnClickListener(new SendListener(this));
+        input.setOnEditorActionListener(this);
+        btnSend.setOnClickListener(this);
         arduino = Arduino.factory(console, this, this);
     }
 
@@ -55,32 +62,9 @@ public class Main extends android.app.Activity
         input.setText("", TextView.BufferType.EDITABLE);
     }
 
-/*
-    private class SendListener implements android.view.View.OnClickListener
+    public void onClick(android.view.View arg0)
     {
-        public void onClick(android.view.View arg0)
-        {
-            dispatch();
-        }
-    }
-*/
-
-    private class InputLuisteraar implements EditText.OnKeyListener
-    {
-        public boolean onKey(android.view.View v, int keyCode, KeyEvent ev)
-        {
-            dispatch();
-            return false;
-        }
-    }
-
-    private class InputListener implements EditText.OnEditorActionListener
-    {
-        public boolean onEditorAction(TextView et, int actionId, KeyEvent ev)
-        {
-            dispatch();
-            return false;
-        }
+        dispatch();
     }
 
     public void ontvang(byte[] data)

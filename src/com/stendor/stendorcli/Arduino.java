@@ -7,12 +7,12 @@ import com.hoho.android.usbserial.util.SerialInputOutputManager;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Arduino
+public class Arduino implements SerialInputOutputManager.Listener
 {
     Console console;
     UsbSerialDriver driver;
     SerialInputOutputManager manager;
-    SerialInputOutputManager.Listener listener;
+    //SerialInputOutputManager.Listener listener;
     Main main;
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -49,9 +49,18 @@ public class Arduino
         }
 
         console.println("Arduino geinitialiseerd");
-        listener = new Luisteraar(main);
-        manager = new SerialInputOutputManager(driver, listener);
+        //listener = new Luisteraar(main);
+        manager = new SerialInputOutputManager(driver, this);
         executor.submit(manager);
+    }
+
+    public void onRunError(Exception e)
+    {
+    }
+
+    public void onNewData(byte[] data)
+    {
+        main.runOnUiThread(new Dinges(data, main));
     }
 
     public void pan(int deg)
