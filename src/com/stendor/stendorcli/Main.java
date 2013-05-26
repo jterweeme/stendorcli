@@ -52,6 +52,8 @@ public class Main
             arduino.rechtsAchteruit(command.getParameter());
         else if (command.getOperation().equals("trip"))
             arduino.trip();
+        else if (command.getOperation().equals("debug"))
+            arduino.debug();
         else
             console.println("Ongeldige opdracht");
     }

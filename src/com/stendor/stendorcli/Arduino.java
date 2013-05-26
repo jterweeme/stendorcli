@@ -12,7 +12,6 @@ public class Arduino implements SerialInputOutputManager.Listener
     Console console;
     UsbSerialDriver driver;
     SerialInputOutputManager manager;
-    //SerialInputOutputManager.Listener listener;
     Main main;
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -49,9 +48,22 @@ public class Arduino implements SerialInputOutputManager.Listener
         }
 
         console.println("Arduino geinitialiseerd");
-        //listener = new Luisteraar(main);
         manager = new SerialInputOutputManager(driver, this);
         executor.submit(manager);
+    }
+
+    public void debug()
+    {
+        String command = String.format("d\r");
+
+        try
+        {
+            driver.write(command.getBytes(), 0);
+        }
+        catch (Exception e)
+        {
+            console.println("Geen debug bericht...");
+        }
     }
 
     public void onRunError(Exception e)
@@ -157,7 +169,7 @@ public class Arduino implements SerialInputOutputManager.Listener
 
     public int trip()
     {
-        String command = "o\r";
+        String command = String.format("o\r");
 
         try
         {
