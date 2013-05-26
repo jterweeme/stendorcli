@@ -19,7 +19,7 @@ public class Main extends android.app.Activity
         btnSend = (Button)findViewById(R.id.btnSend);
         input = (EditText)findViewById(R.id.input);
         input.setOnEditorActionListener(new InputListener());
-        btnSend.setOnClickListener(new SendListener());
+        btnSend.setOnClickListener(new SendListener(this));
         arduino = Arduino.factory(console, this, this);
     }
 
@@ -49,12 +49,13 @@ public class Main extends android.app.Activity
             console.println("Ongeldige opdracht");
     }
 
-    void dispatch()
+    public void dispatch()
     {
         execute(new Command(input.getText().toString()));
         input.setText("", TextView.BufferType.EDITABLE);
     }
 
+/*
     private class SendListener implements android.view.View.OnClickListener
     {
         public void onClick(android.view.View arg0)
@@ -62,6 +63,7 @@ public class Main extends android.app.Activity
             dispatch();
         }
     }
+*/
 
     private class InputLuisteraar implements EditText.OnKeyListener
     {
@@ -83,7 +85,7 @@ public class Main extends android.app.Activity
 
     public void ontvang(byte[] data)
     {
-        console.println("Ontvangen!\n");
+        console.println(data);
     }
 }
 
